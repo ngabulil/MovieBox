@@ -8,6 +8,7 @@ import { useMovieContext } from "../../contexts/MovieContext";
 import { openEditMovie } from "../../components/View/ModalMovie/ModalMovie";
 import Loading from "../../components/Loading/Loading";
 import Swal from "sweetalert2";
+import { useWindowWidth } from "@react-hook/window-size";
 
 export let setLoadingDetailPage = () => {};
 
@@ -16,6 +17,7 @@ const Detail = () => {
   const [loading, setLoading] = useState(true);
   const { handleSetMovie, isUpdated, setIsUpdated, handleDeleteMovie } = useMovieContext()
   const { id } = useParams();
+  const windowWidth = useWindowWidth({ wait: 500 });
   const navigate = useNavigate();
   
   setLoadingDetailPage = setLoading
@@ -67,11 +69,11 @@ const Detail = () => {
       <Header movie={movie} />
       <Body movie={movie} />
       <div className="fixed bottom-10 right-10 flex gap-4 max-780:flex-col z-[3]">
-        <div onClick={deleteMovie} className="p-6 bg-[#BE123C] text-white rounded-full cursor-pointer">
-          <FaTrash size={30} />
+        <div onClick={deleteMovie} className="p-6 bg-[#BE123C] text-white rounded-full cursor-pointer max-780:p-3">
+          <FaTrash size={windowWidth > 768 ? 30 : 20} />
         </div>
-        <div onClick={handleEditMovie} className="p-6 bg-[#BE123C] text-white rounded-full cursor-pointer">
-          <FaRegEdit size={30} />
+        <div onClick={handleEditMovie} className="p-6 bg-[#BE123C] text-white rounded-full cursor-pointer max-780:p-3">
+          <FaRegEdit size={windowWidth > 768 ? 30 : 20} />
         </div>
       </div>
     </div>
